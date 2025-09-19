@@ -1,19 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WonderLust </title>
-</head>
+<% layout("/layouts/boilerplate")%>
 <body>
     <h3>All Listings </h3>
-    <form method="get" action="/listing/new">
+    <!-- <form method="get" action="/listing/new">
         <button>Create New Listing</button>
-    </form>
-    <ul>
+    </form> -->
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
         <% for(let listing of allListings){ %>
-            <li><a href="/listing/<%= listing._id %>"> <%= listing.title %> </a></li>
+        <div class="card col" style="width: 30%;">
+            <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image">
+            <div class="card-body">
+                <p class="card-text"> 
+                    <%= listing.title %>
+                    <br>
+                    &#8377; <%= listing.price.toLocaleString("en-IN")  %>
+                    <br>
+                </p>
+            </div>
+        </div>
         <% } %>
-    </ul>
+    </div>
+
+
 </body>
-</html> 

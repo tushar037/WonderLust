@@ -2,11 +2,13 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
+const ejsMate = require("ejs-mate")
+
 
 const listing = require("./models/listing.js");
 const methodOverride =require("method-override");
 
-const { log, error } = require("console");
+// const { log, error } = require("console");
 
 
 
@@ -31,10 +33,13 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
+app.engine("ejs", ejsMate);
+app.use(express.static(path.join(__dirname, "/public")));
 
 app.get("/", (req, res)=> {
     res.send("Hello world!")
 })
+
 //Index Route
 app.get("/listing", async (req, res) => {
     const allListings = await listing.find({});
@@ -62,6 +67,7 @@ app.post("/listing", async (req, res) =>{
    res.redirect("/listing/");
 })
 
+
 // Edit Route
 app.get("/listing/:id/edit", async (req, res) =>{
     let {id} = req.params;
@@ -73,7 +79,7 @@ app.get("/listing/:id/edit", async (req, res) =>{
 app.put("/listing/:id", async (req, res) =>{
     let {id} = req.params;
     await listing.findByIdAndUpdate(id, {...req.body.listing});
-    res.redirect(`../listing/${id}`);
+    res.redirect(`/listing/${id}`);
 });
 
 // // Delete Route
@@ -90,7 +96,7 @@ app.get("/listing/:id", async (req,res) =>{
     let deleteListing = await listing.findByIdAndDelete(id);
     console.log(deleteListing);
     res.redirect("/listing")
-})
+});
 
 
   
@@ -112,3 +118,6 @@ app.get("/listing/:id", async (req,res) =>{
 app.listen(3000, () =>{
     console.log("server listening to port 3000");
 })  
+
+
+
