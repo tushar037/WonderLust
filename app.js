@@ -64,7 +64,7 @@ app.get("/listing/:id",async(req, res)=>{
 app.post("/listing", async (req, res) =>{
    const newListing = new listing(req.body.listing);
    await newListing.save();
-   res.redirect("/listing/");
+   res.redirect("/listing");
 })
 
 
@@ -82,21 +82,21 @@ app.put("/listing/:id", async (req, res) =>{
     res.redirect(`/listing/${id}`);
 });
 
-// // Delete Route
-// app.delete("/listing/:id", async (req, res) =>{
-//     let {id} = req.params;
-//     let deleteListing = await listing.findByIdAndDelete(id);
-//     console.log(deleteListing)
-//     res.redirect("/listing")
-// })
-
-// Delete Route 
-app.get("/listing/:id", async (req,res) =>{
+// Delete Route
+app.delete("/listing/:id", async (req, res) =>{
     let {id} = req.params;
     let deleteListing = await listing.findByIdAndDelete(id);
-    console.log(deleteListing);
+    console.log(deleteListing)
     res.redirect("/listing")
-});
+})
+
+// // Delete Route 
+// app.get("/listing/:id", async (req,res) =>{
+//     let {id} = req.params;
+//     let deleteListing = await listing.findByIdAndDelete(id);
+//     console.log(deleteListing);
+//     res.redirect("/listing")
+// });
 
 
   

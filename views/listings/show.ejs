@@ -14,7 +14,7 @@
     <!-- <form method="post" action="/listing/ ?_method=Delete">
         <button>Delete</button>
     </form> -->
-    <form action="/listing/ <% Listing._id %>?_method=Delete">
-        <button>delete</button>
+    <form method="POST" action="/listing/<%= Listing._id %>?_method=DELETE">
+        <button>Delete</button>
     </form>
 </body>
